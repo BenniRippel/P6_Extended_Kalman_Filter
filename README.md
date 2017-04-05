@@ -5,3 +5,10 @@ In this project, I built an Extended Kalman Filter in c++ to fuse sensor data fr
 
 - LIDAR Sensor
 - RADAR Sensor
+
+
+There are sample data files in the /data folder.
+
+Run the EKF in a terminal entering:
+
+./ExtendedKF /input/data/file /output/data/file
