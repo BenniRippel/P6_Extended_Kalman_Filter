@@ -76,8 +76,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       * Remember: you'll need to convert radar from polar to cartesian coordinates.
     */
     // first measurement
-    cout << "EKF: " << endl;
-
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
         /**
         Convert radar from polar to cartesian coordinates and initialize state.
@@ -143,6 +141,6 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   }
   previous_timestamp_=measurement_pack.timestamp_;
   // print the output
-  cout << "x_ = " << ekf_.x_ << endl;
-  cout << "P_ = " << ekf_.P_ << endl;
+  //cout << "x_ = " << ekf_.x_ << endl;
+  //cout << "P_ = " << ekf_.P_ << endl;
 }
