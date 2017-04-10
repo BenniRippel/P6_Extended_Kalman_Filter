@@ -54,17 +54,14 @@ FusionEKF::FusionEKF() {
 */
 FusionEKF::~FusionEKF() {}
 
-void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
-    /*if (fabs(measurement_pack.raw_measurements_[0])<0.00000001 &&
-            fabs(measurement_pack.raw_measurements_[0])<0.00000001){cout<<"Skipping Measurement!"<<endl; return;}
-*/
-    /*
-    if (fabs(pow(measurement_pack.raw_measurements_[0]*measurement_pack.raw_measurements_[0]+
-                     measurement_pack.raw_measurements_[1]*measurement_pack.raw_measurements_[1], 0.5))<0.00000001){
-        cout<<"Skipping Measurement!"<<endl;
-        return;
-    }
-*/
+void FusionEKF::ProcessMeasurement(MeasurementPackage &measurement_pack) {
+    // check for small measurements and adjust
+    if (fabs(measurement_pack.raw_measurements_[0])<0.001 && fabs(measurement_pack.raw_measurements_[1])<0.001){
+        cout<<"Adjusting Measurement: Setting zeros to 0.1!"<<endl;
+        measurement_pack.raw_measurements_[0]=0.1;
+        measurement_pack.raw_measurements_[0]=0.1;
+        }
+
 
   /*****************************************************************************
    *  Initialization
@@ -106,10 +103,12 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
      * Update the process noise covariance matrix.
      * Use noise_ax = 9 and noise_ay = 9 for your Q matrix.
    */
-   // get delta T
+  // get delta T
   double delta_T = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0;
-
-  ekf_.Predict(delta_T);
+  // only predict if delta_T is above threshold
+  if (delta_T > 0.001) {
+      ekf_.Predict(delta_T);
+  }
   /*****************************************************************************
    *  Update
    ****************************************************************************/

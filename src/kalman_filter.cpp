@@ -48,9 +48,9 @@ void KalmanFilter::Update(const VectorXd &z) {
     VectorXd z_pred = H_ * x_;
     VectorXd y = z - z_pred;
     MatrixXd Ht = H_.transpose();
-    MatrixXd S = H_ * P_ * Ht + R_;
-    MatrixXd Si = S.inverse();
     MatrixXd PHt = P_ * Ht;
+    MatrixXd S = H_ * PHt + R_;
+    MatrixXd Si = S.inverse();
     MatrixXd K = PHt * Si;
 
     //new estimate
@@ -62,16 +62,17 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   // update the state by using Extended Kalman Filter equations
+    if (x_[0]==0){x_[0]=0.01;} // prevents problems with atan2 and dividing by c2 when x_[0]=0
     double c1 = x_[0]*x_[0]+x_[1]*x_[1];
     double c2 = pow(c1, 0.5);
 
-    Eigen::Vector3d z_pred(c2, atan2(x_[1],x_[0]), (x_[0]*x_[2]+x_[1]*x_[3])/c2);    //h(x) - vorherige pos in pol koord (3 eintraege)
+    Eigen::Vector3d z_pred(c2, atan2(x_[1],x_[0]), (x_[0]*x_[2]+x_[1]*x_[3])/c2);
 
     VectorXd y = z - z_pred;
     MatrixXd Ht = H_.transpose();
-    MatrixXd S = H_ * P_ * Ht + R_;
-    MatrixXd Si = S.inverse();
     MatrixXd PHt = P_ * Ht;
+    MatrixXd S = H_ * PHt + R_;
+    MatrixXd Si = S.inverse();
     MatrixXd K = PHt * Si;
 
     //new estimate
