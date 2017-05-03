@@ -12,3 +12,6 @@ There are sample data files in the /data folder.
 Run the EKF in a terminal entering:
 
 ./ExtendedKF /input/data/file /output/data/file
+
+
+![Visualisation](./EKF_Vis.png)

@@ -1,4 +1,4 @@
-# Install script for directory: /home/benni/Schreibtisch/Repositories/UdacitySDC/P6_Extended_Kalman_filter
+# Install script for directory: /home/benni/Repositories/UdacitySDC/P6_Extended_Kalman_Filter
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -40,5 +40,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/benni/Schreibtisch/Repositories/UdacitySDC/P6_Extended_Kalman_filter/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/benni/Repositories/UdacitySDC/P6_Extended_Kalman_Filter/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
